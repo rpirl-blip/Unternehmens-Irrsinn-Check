@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wie irre ist Ihr Unternehmen? | Irrsinn-Check</title>
+</head>
+<body>
+<div id="irrsinn-check-root"></div>
+<style>
+#irrsinn-check-root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#202c35;max-width:820px;margin:20px auto;line-height:1.55}#irrsinn-check-root *{box-sizing:border-box}#irrsinn-check-root .ic-shell{border:1px solid #dce3e8;border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 8px 26px #19303a0b}#irrsinn-check-root .ic-head{background:#183845;color:white;padding:25px 30px}#irrsinn-check-root h2{font-size:27px;line-height:1.2;margin:0 0 7px}#irrsinn-check-root h3{font-size:21px;line-height:1.3;margin:0 0 15px}#irrsinn-check-root .ic-head p{margin:0;color:#e0ebef}#irrsinn-check-root .ic-body{padding:27px 30px}#irrsinn-check-root .ic-kicker{color:#547382;font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;margin:0 0 10px}#irrsinn-check-root .ic-opt{display:flex;align-items:flex-start;gap:12px;border:1px solid #dce3e8;border-radius:11px;padding:13px 15px;margin:9px 0;cursor:pointer;background:#fff;transition:.15s}#irrsinn-check-root .ic-opt:hover{border-color:#688e9c;background:#f7fafb}#irrsinn-check-root .ic-opt:has(input:checked){border-color:#176782;background:#eff8fa}#irrsinn-check-root .ic-opt input{margin-top:5px;accent-color:#176782;flex:none}#irrsinn-check-root .ic-opt b{margin-right:7px}#irrsinn-check-root .ic-nav{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:23px}#irrsinn-check-root button{background:#176782;border:1px solid #176782;border-radius:9px;color:#fff;padding:11px 17px;font:inherit;font-weight:650;cursor:pointer}#irrsinn-check-root button:disabled{opacity:.4;cursor:not-allowed}#irrsinn-check-root button.ic-secondary{background:white;color:#176782}#irrsinn-check-root .ic-progress{height:6px;background:#e6edef}#irrsinn-check-root .ic-progress>div{height:100%;background:#41a4b0;transition:width .2s}#irrsinn-check-root .ic-muted{color:#647884;font-size:14px}#irrsinn-check-root .ic-panel{background:#f3f7f8;border-radius:12px;padding:17px 20px;margin:14px 0}#irrsinn-check-root .ic-panel p{margin:6px 0}#irrsinn-check-root .ic-score{font-size:46px;font-weight:800;line-height:1.1;color:#176782}#irrsinn-check-root .ic-badge{display:inline-block;border-radius:99px;background:#e0ebef;color:#244a59;padding:3px 10px;font-size:12px;font-weight:700;margin-bottom:9px}#irrsinn-check-root .ic-warning{border-left:3px solid #bb8c39;padding-left:12px}#irrsinn-check-root .ic-error{color:#a43d31;font-weight:600}#irrsinn-check-root .ic-footer{font-size:12px;color:#637984;margin-top:22px}#irrsinn-check-root .ic-select{display:block;width:100%;font:inherit;padding:12px;border:1px solid #c9d6dc;border-radius:9px;background:white;margin:10px 0 18px}#irrsinn-check-root .ic-small{font-size:13px}#irrsinn-check-root .ic-divider{height:1px;background:#dce3e8;margin:22px 0}@media(max-width:550px){#irrsinn-check-root .ic-body{padding:20px 17px}#irrsinn-check-root .ic-head{padding:20px 17px}#irrsinn-check-root h2{font-size:23px}#irrsinn-check-root h3{font-size:19px}}
+</style>
+<script>
+(function(){
+'use strict';
+const DATA={
+  "questions": [
+    {
+      "category": "Entscheidungswahnsinn",
+      "text": "Ein Mitarbeiter hat eine einfache, sinnvolle Idee, wie sich ein bestehender Arbeitsablauf verbessern lässt. Die Umsetzung würde kaum etwas kosten. Was passiert?",
+      "options": [
+        "Die zuständige Person entscheidet, und die Verbesserung wird umgesetzt. Fast schon verdächtig effizient.",
+        "Erst einmal werden alle Beteiligten gefragt. Man will schließlich niemanden übergehen.",
+        "Der Vorschlag wandert durch mehrere Hierarchieebenen. Irgendwer wird sich schon zuständig fühlen.",
+        "Nichts. Der Vorschlag verschwindet im Unternehmensnirwana. Dort liegen bereits 247 andere gute Ideen."
+      ],
+      "severity": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "category": "Entscheidungswahnsinn",
+      "text": "Ein Kunde beschwert sich, weil bei einem Auftrag etwas schiefgelaufen ist. Mehrere Abteilungen waren beteiligt. Wer übernimmt die Verantwortung und sorgt für die Klärung?",
+      "options": [
+        "Eine Person übernimmt die Verantwortung, koordiniert die Klärung und sorgt dafür, dass der Kunde eine Lösung erhält. Fast schon professionell.",
+        "Jeder kümmert sich um seinen Teil. Ob am Ende jemand das Gesamtproblem löst, bleibt spannend.",
+        "Die Abteilungsleiter diskutieren zunächst, wer zuständig ist. Die Schuldfrage genießt Vorrang vor der Problemlösung.",
+        "Niemand fühlt sich verantwortlich. Der Kunde wird zum Projektleiter seiner eigenen Beschwerde."
+      ],
+      "severity": [
+        0,
+        2,
+        2,
+        3
+      ]
+    },
+    {
+      "category": "Meeting-Martyrium",
+      "text": "Wie sieht es bei Ihnen mit der Anzahl der wöchentlichen Besprechungen aus?",
+      "options": [
+        "Insgesamt passt es. Nur in bestimmten Abteilungen scheint man Meetings mit produktiver Arbeit zu verwechseln.",
+        "Es wird grundsätzlich zu viel besprochen. Manchmal braucht es drei Meetings, um zu entscheiden, wann das vierte stattfindet.",
+        "Besprechungen finden statt, wenn es etwas zu klären oder zu entscheiden gibt. Für alles andere haben wir Arbeit.",
+        "Unser Unternehmen besteht eigentlich nur noch aus Besprechungen. Die eigentliche Arbeit erledigen wir zwischen zwei Teams-Einladungen. Oder nach Feierabend."
+      ],
+      "severity": [
+        1,
+        2,
+        0,
+        3
+      ]
+    },
+    {
+      "category": "Meeting-Martyrium",
+      "text": "Sie verlassen eine Besprechung. Was haben Sie erreicht?",
+      "options": [
+        "Wir haben viel diskutiert. Die finale Entscheidung, wie wir weitermachen, steht noch aus. Man soll schließlich nichts überstürzen.",
+        "Es gibt konkrete Ergebnisse, klare Verantwortlichkeiten und vereinbarte nächste Schritte. Fast schon unheimlich.",
+        "Die wichtigsten Punkte wurden geklärt. Allerdings bleibt häufig offen, wer die nächsten Schritte übernimmt und bis wann sie erledigt sein sollen.",
+        "Keine Ahnung. Aber wir haben 37 PowerPoint-Folien durchgeklickt, Kollegen getroffen, die nicht wussten, warum sie hier sind, drei neue Probleme entdeckt und einen Folgetermin vereinbart."
+      ],
+      "severity": [
+        2,
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "category": "Digitaler Overkill",
+      "text": "Sie benötigen eine konkrete Information zu einem Ihrer Produkte oder einem bestimmten internen Arbeitsablauf. Wie kommen Sie an die benötigten Infos?",
+      "options": [
+        "Irgendwo steht das bestimmt. Man muss nur die richtige Excel-Datei, den passenden Ordner oder die E-Mail von vor drei Jahren finden.",
+        "Die Informationen sind für alle Mitarbeiter zentral verfügbar, aktuell und schnell auffindbar.",
+        "Wir haben verschiedene Systeme und Ablagen. Meistens findet man etwas, aber ob das noch aktuell ist, weiß niemand so genau.",
+        "Wir fragen jemanden, der jemanden kennt, der vielleicht weiß, wo die aktuellen Daten liegen. Falls diese Person im Urlaub ist, haben wir ein Problem."
+      ],
+      "severity": [
+        2,
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "category": "Digitaler Overkill",
+      "text": "Wie viel Ihrer Arbeitszeit verbringen Sie damit, E-Mails zu lesen, automatische Benachrichtigungen und Systemmeldungen zu bearbeiten und digitale Workflows zu bedienen, statt Ihre eigentliche Arbeit zu erledigen?",
+      "options": [
+        "Unsere digitalen Workflows sind echte Zeitfresser. Selbst einfache Aufgaben durchlaufen mehrere Bearbeitungs- und Freigabeschritte, obwohl häufig niemand weiß, wozu diese eigentlich notwendig sind.",
+        "Die digitalen Systeme unterstützen uns tatsächlich. E-Mails, Benachrichtigungen und Workflows beschränken sich weitgehend auf das Notwendige.",
+        "Mein Posteingang ist eine Mischung aus CC-Mails, automatischen Statusmeldungen und Benachrichtigungen. Die wirklich wichtigen Dinge finde ich meistens auch noch.",
+        "Ich arbeite eigentlich nur noch für unsere Software. Morgens bestätige ich, was gestern erledigt wurde, mittags bearbeite ich die daraus entstandenen Workflows und abends bekomme ich eine Erinnerung, dass ich meine eigentliche Arbeit noch nicht gemacht habe."
+      ],
+      "severity": [
+        2,
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "category": "Schnittstellen-Irrsinn",
+      "text": "Innerhalb der einzelnen Abteilungen funktionieren die Arbeitsabläufe vom Feinsten. Aber wie läuft es, wenn eine Aufgabe oder ein Projekt von mehreren Abteilungen bearbeitet werden soll?",
+      "options": [
+        "Jede Abteilung erledigt ihren Teil. Was davor oder danach passiert, ist schließlich nicht ihr Problem. Wenn jeder an sich denkt, ist an alle gedacht.",
+        "Die Zusammenarbeit funktioniert weitgehend reibungslos. Informationen werden zuverlässig weitergegeben, und jeder weiß, wann er an der Reihe ist.",
+        "Meistens klappt es. Gelegentlich bleiben Anfragen liegen, Informationen fehlen oder jemand muss nachtelefonieren, damit es weitergeht.",
+        "Sobald mehrere Abteilungen beteiligt sind, wird es chaotisch. Jede arbeitet nach ihren eigenen Regeln, Übergaben sind kaum abgestimmt und niemand hat einen Überblick über den gesamten Ablauf."
+      ],
+      "severity": [
+        3,
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "category": "Schnittstellen-Irrsinn",
+      "text": "Wie groß ist der Unterschied zwischen dem, wie Ihre Führungskräfte die Arbeitsabläufe einschätzen, und dem, wie sie im Arbeitsalltag tatsächlich funktionieren?",
+      "options": [
+        "Unsere Führungskräfte kennen die Abläufe aus der Praxis. Wenn etwas nicht funktioniert, bekommen sie es mit und kümmern sich darum.",
+        "Unsere Führungskräfte interessieren sich hauptsächlich für Ergebnisse und Kennzahlen. Wie viel Aufwand dahintersteckt, ist zweitrangig. Hauptsache, die Zahlen stimmen.",
+        "Die Prozesse sind eigentlich gut durchdacht. Im Alltag haben sich allerdings einige Abkürzungen und Eigenlösungen eingeschlichen, von denen oben nicht jeder weiß.",
+        "Unser Management lebt in einer Parallelwelt. Dort läuft alles automatisch, jeder Prozess ist optimiert und sämtliche Ampeln stehen auf Grün. Dass die Mitarbeiter den ganzen Laden mit Excel, Telefon und purem Überlebenswillen zusammenhalten, gilt vermutlich als gelungene Digitalisierung."
+      ],
+      "severity": [
+        0,
+        2,
+        1,
+        3
+      ]
+    },
+    {
+      "category": "Menschliche Abgründe",
+      "text": "Ein Kollege hat eine richtig gute Idee, erzielt einen Erfolg oder bekommt eine interessante Chance. Wie reagieren die anderen darauf?",
+      "options": [
+        "Nach außen wird gratuliert. Hinter vorgehaltener Hand wird allerdings schon darüber diskutiert, ob der Erfolg wirklich so verdient war.",
+        "Gute Leistungen werden anerkannt, Erfolge gemeinsam gefeiert und Kollegen unterstützt. Getreu dem Motto: „We work hard and we play hard.“",
+        "Solange niemand selbst einen Nachteil hat, gönnt man anderen ihren Erfolg. Wird es aber bei Beförderungen oder interessanten Aufgaben eng, hört die Freundschaft schnell auf.",
+        "Der Erfolg eines Kollegen ist eine persönliche Beleidigung. Wer glänzt, wird erst einmal schlechtgeredet, bei nächster Gelegenheit angeschwärzt und notfalls gezielt vor die Wand laufen gelassen. Karriere macht schließlich nicht, wer gut ist, sondern wer die anderen rechtzeitig aus dem Weg räumt oder am tiefsten irgendwo reinkriecht."
+      ],
+      "severity": [
+        2,
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "category": "Menschliche Abgründe",
+      "text": "Es ist Montagmorgen. Mit welchem Gefühl starten Sie in die neue Arbeitswoche?",
+      "options": [
+        "Man überlegt, welcher Ärger oder welche unnötige Aufgabe wohl auf einen wartet. Die Stimmung ist häufig angespannt, und echte Freude an der Arbeit kommt selten auf.",
+        "Die Arbeit ist in Ordnung, die Kollegen meistens auch. Es gibt gute und schlechte Tage. Eben ein ganz normaler Arbeitsplatz.",
+        "Mit gutem Gefühl. Die Arbeit macht überwiegend Spaß, der Umgang miteinander stimmt und auch an stressigen Tagen wird gemeinsam gelacht.",
+        "Leere. Ich gebe mein Gehirn an der Pforte ab. Was danach kommt, ist Schicksal."
+      ],
+      "severity": [
+        2,
+        1,
+        0,
+        3
+      ]
+    }
+  ],
+  "diagnoses": [
+    {
+      "id": 1,
+      "title": "Die Entscheidungs-Vermeidungsmaschine",
+      "type": "negative",
+      "trigger": [
+        "1C",
+        "4A",
+        "3B"
+      ],
+      "support": [
+        "2C",
+        "8B"
+      ],
+      "against": [
+        "2A",
+        "8A"
+      ],
+      "action": "Prüfen Sie fünf zuletzt verzögerte Entscheidungen: Wer durfte entscheiden, wer wurde beteiligt und wo blieb die Sache liegen?"
+    },
+    {
+      "id": 2,
+      "title": "Die organisierte Verantwortungslosigkeit",
+      "type": "negative",
+      "trigger": [
+        "2D",
+        "7A"
+      ],
+      "support": [
+        "4C",
+        "5D"
+      ],
+      "against": [
+        "4B"
+      ],
+      "action": "Verfolgen Sie einen Kundenfall über alle Abteilungen hinweg. Bestimmen Sie, wer bis zur endgültigen Lösung verantwortlich bleibt."
+    },
+    {
+      "id": 3,
+      "title": "Die Friedhofsverwaltung guter Ideen",
+      "type": "negative",
+      "trigger": [
+        "1D",
+        "8B"
+      ],
+      "support": [
+        "4A",
+        "10A"
+      ],
+      "against": [
+        "4B"
+      ],
+      "action": "Holen Sie drei liegengebliebene Verbesserungsvorschläge hervor und treffen Sie zu jedem eine verbindliche Entscheidung."
+    },
+    {
+      "id": 4,
+      "title": "Das Meeting-Perpetuum-mobile",
+      "type": "negative",
+      "trigger": [
+        "3D",
+        "4D"
+      ],
+      "support": [
+        "1C",
+        "6C"
+      ],
+      "against": [
+        "1A"
+      ],
+      "action": "Setzen Sie eine regelmäßige Besprechung zwei Wochen lang aus. Prüfen Sie, was dadurch tatsächlich liegen bleibt."
+    },
+    {
+      "id": 5,
+      "title": "Die unverbindliche Organisation",
+      "type": "negative",
+      "trigger": [
+        "4C",
+        "2B"
+      ],
+      "support": [
+        "1C",
+        "7A"
+      ],
+      "against": [
+        "1A"
+      ],
+      "action": "Prüfen Sie drei letzte Meetingprotokolle: Hat jede Maßnahme eine zuständige Person und einen Termin?"
+    },
+    {
+      "id": 6,
+      "title": "Die digitale Beschäftigungstherapie",
+      "type": "negative",
+      "trigger": [
+        "6A",
+        "1C"
+      ],
+      "support": [
+        "8B",
+        "4A"
+      ],
+      "against": [
+        "8A"
+      ],
+      "action": "Zählen Sie an einem einfachen Vorgang sämtliche Freigaben und Bestätigungen. Prüfen Sie, welcher Schritt nachweislich entbehrlich ist."
+    },
+    {
+      "id": 7,
+      "title": "Das Informationslabyrinth",
+      "type": "negative",
+      "trigger": [
+        "5C",
+        "7C"
+      ],
+      "support": [
+        "8C",
+        "6C"
+      ],
+      "against": [
+        "8A"
+      ],
+      "action": "Lassen Sie drei Personen dieselbe wichtige Information suchen und vergleichen Sie Fundorte, Aktualität und Suchzeit."
+    },
+    {
+      "id": 8,
+      "title": "Die unsichtbare Handarbeit",
+      "type": "negative",
+      "trigger": [
+        "5D",
+        "8D"
+      ],
+      "support": [
+        "7C",
+        "6C"
+      ],
+      "against": [
+        "7B"
+      ],
+      "action": "Fragen Sie drei erfahrene Kollegen, welche Informationen oder Umwege ohne ihr persönliches Wissen fehlen würden."
+    },
+    {
+      "id": 9,
+      "title": "Die Kommunikationslawine",
+      "type": "negative",
+      "trigger": [
+        "6C",
+        "3B"
+      ],
+      "support": [
+        "4A",
+        "5C"
+      ],
+      "against": [
+        "4B"
+      ],
+      "action": "Erfassen Sie eine Woche lang, welche Nachrichten und Meetings tatsächlich eine Entscheidung oder Handlung auslösen."
+    },
+    {
+      "id": 10,
+      "title": "Der zerfallene Gesamtprozess",
+      "type": "negative",
+      "trigger": [
+        "7D",
+        "8C"
+      ],
+      "support": [
+        "2B",
+        "5C"
+      ],
+      "against": [
+        "2A"
+      ],
+      "action": "Lassen Sie zwei Abteilungen denselben Prozess getrennt skizzieren. Vergleichen Sie Übergaben und Verantwortlichkeiten."
+    },
+    {
+      "id": 11,
+      "title": "Die Management-Parallelwelt",
+      "type": "negative",
+      "trigger": [
+        "8D",
+        "6A",
+        "5C"
+      ],
+      "support": [
+        "1C",
+        "7D"
+      ],
+      "against": [
+        "2A"
+      ],
+      "action": "Begleiten Sie einen echten Arbeitsvorgang vom Eingang bis zum Abschluss – ohne Präsentation, dafür mit allen Umwegen."
+    },
+    {
+      "id": 12,
+      "title": "Die Schuldabwehrorganisation",
+      "type": "negative",
+      "trigger": [
+        "2C",
+        "9D"
+      ],
+      "support": [
+        "10A",
+        "7A"
+      ],
+      "against": [
+        "10C"
+      ],
+      "action": "Untersuchen Sie einen abgeschlossenen Fehlerfall: Was im Ablauf ermöglichte den Fehler, unabhängig von der Schuldfrage?"
+    },
+    {
+      "id": 13,
+      "title": "Die erschöpfte Leistungsgesellschaft",
+      "type": "negative",
+      "trigger": [
+        "8B",
+        "10A",
+        "6C"
+      ],
+      "support": [
+        "3B",
+        "4D"
+      ],
+      "against": [
+        "9B"
+      ],
+      "action": "Erfassen Sie eine typische Woche: Wie viel Zeit bleibt für die eigentliche Arbeit, wie viel verschwindet in Nebentätigkeiten?"
+    },
+    {
+      "id": 14,
+      "title": "Die perfekt organisierte Ineffizienz",
+      "type": "negative",
+      "trigger": [
+        "1C",
+        "3B",
+        "6A",
+        "8D"
+      ],
+      "support": [
+        "4A",
+        "5C"
+      ],
+      "against": [
+        "2A"
+      ],
+      "action": "Wählen Sie einen einfachen Vorgang und zählen Sie beteiligte Personen, Besprechungen, Freigaben und Systeme."
+    },
+    {
+      "id": 15,
+      "title": "Die Macher statt Schwätzer",
+      "type": "positive",
+      "trigger": [
+        "1A",
+        "4B"
+      ],
+      "support": [
+        "2A",
+        "3C"
+      ],
+      "against": [
+        "2D"
+      ],
+      "action": "Analysieren Sie eine schnell umgesetzte Verbesserung und übertragen Sie die hilfreichen Entscheidungsregeln auf einen zweiten Ablauf."
+    },
+    {
+      "id": 16,
+      "title": "Die unsichtbaren Problemlöser",
+      "type": "positive",
+      "trigger": [
+        "2A",
+        "7C"
+      ],
+      "support": [
+        "4B",
+        "10C"
+      ],
+      "against": [
+        "9D"
+      ],
+      "action": "Sprechen Sie mit der Person, die Kundenprobleme zuverlässig zu Ende bringt: Welche Informationen und Befugnisse helfen dabei?"
+    },
+    {
+      "id": 17,
+      "title": "Teamgeist schlägt Bürokratie",
+      "type": "positive",
+      "trigger": [
+        "7B",
+        "6A"
+      ],
+      "support": [
+        "2A",
+        "10C"
+      ],
+      "against": [
+        "9D"
+      ],
+      "action": "Fragen Sie das gut zusammenarbeitende Team, welcher digitale Pflichtschritt am meisten behindert. Prüfen Sie dessen Nutzen."
+    },
+    {
+      "id": 18,
+      "title": "Die Informationsdetektive",
+      "type": "positive",
+      "trigger": [
+        "5D",
+        "7B"
+      ],
+      "support": [
+        "2A",
+        "10C"
+      ],
+      "against": [
+        "9D"
+      ],
+      "action": "Machen Sie die fünf Informationen zentral zugänglich, die bislang nur über persönliche Kontakte gefunden werden."
+    },
+    {
+      "id": 19,
+      "title": "Produktiv trotz Meetingflut",
+      "type": "positive",
+      "trigger": [
+        "3B",
+        "4B"
+      ],
+      "support": [
+        "1A",
+        "10C"
+      ],
+      "against": [
+        "2D"
+      ],
+      "action": "Halbieren Sie testweise Dauer oder Häufigkeit einer ergebnisstarken Besprechung und prüfen Sie, ob die Qualität bleibt."
+    },
+    {
+      "id": 20,
+      "title": "Die motivierten Überlebenskünstler",
+      "type": "positive",
+      "trigger": [
+        "8D",
+        "10C"
+      ],
+      "support": [
+        "7B",
+        "9B"
+      ],
+      "against": [
+        "9D"
+      ],
+      "action": "Finden Sie heraus, was trotz organisatorischer Schwierigkeiten motiviert, und schützen Sie diese Stärke bei Veränderungen."
+    },
+    {
+      "id": 21,
+      "title": "Die funktionierende Selbstorganisation",
+      "type": "positive",
+      "trigger": [
+        "1A",
+        "7B",
+        "4B"
+      ],
+      "support": [
+        "2A",
+        "3C"
+      ],
+      "against": [
+        "9D"
+      ],
+      "action": "Dokumentieren Sie einen reibungslosen Ablauf: Welche Entscheidungen fallen direkt und welche Abstimmungen sind unnötig?"
+    },
+    {
+      "id": 22,
+      "title": "Digitalisierung, die tatsächlich hilft",
+      "type": "positive",
+      "trigger": [
+        "5B",
+        "6B",
+        "7B"
+      ],
+      "support": [
+        "4B",
+        "8A"
+      ],
+      "against": [
+        "2D"
+      ],
+      "action": "Identifizieren Sie einen digitalen Ablauf, der tatsächlich Zeit spart. Übertragen Sie sein Prinzip auf einen anderen Vorgang."
+    },
+    {
+      "id": 23,
+      "title": "Die freundliche Fassade",
+      "type": "mixed",
+      "trigger": [
+        "9A",
+        "10C"
+      ],
+      "support": [
+        "8B",
+        "2C"
+      ],
+      "against": [
+        "2A"
+      ],
+      "action": "Prüfen Sie, ob Kriterien für Anerkennung, besondere Aufgaben und Beförderungen nachvollziehbar sind."
+    },
+    {
+      "id": 24,
+      "title": "Gut geführt, schlecht organisiert",
+      "type": "mixed",
+      "trigger": [
+        "8A",
+        "7D"
+      ],
+      "support": [
+        "2A",
+        "4B"
+      ],
+      "against": [
+        "5B"
+      ],
+      "action": "Nehmen Sie ein bekanntes Schnittstellenproblem und prüfen Sie, weshalb es trotz Kenntnis noch nicht gelöst ist."
+    },
+    {
+      "id": 25,
+      "title": "Die effiziente Insel im Chaos",
+      "type": "mixed",
+      "trigger": [
+        "1A",
+        "7D"
+      ],
+      "support": [
+        "4B",
+        "2A"
+      ],
+      "against": [
+        "2D"
+      ],
+      "action": "Prüfen Sie, weshalb schnelle Entscheidungen an Abteilungsgrenzen nicht zu reibungslosen Übergaben führen."
+    },
+    {
+      "id": 26,
+      "title": "Die glücklichen Bürokraten",
+      "type": "mixed",
+      "trigger": [
+        "6A",
+        "10C"
+      ],
+      "support": [
+        "9B",
+        "4B"
+      ],
+      "against": [
+        "2D"
+      ],
+      "action": "Fragen Sie, welchen digitalen Pflichtschritt Mitarbeiter sofort abschaffen würden. Prüfen Sie den meistgenannten Schritt."
+    }
+  ]
+};
+const root=document.getElementById('irrsinn-check-root');
+if(!root)return;
+const state={step:0,context:[null,null,null],answers:Array(10).fill(null),result:null};
+const contextQuestions=[
+{title:'Aus welcher Perspektive erleben Sie überwiegend den Arbeitsalltag in Ihrem Unternehmen?',options:['Ich arbeite überwiegend im operativen Tagesgeschäft.','Ich koordiniere Aufgaben, Projekte oder Teams.','Ich verantworte einen Unternehmensbereich oder eine Abteilung.','Ich bin für die Gesamtleitung oder Unternehmensführung verantwortlich.']},
+{title:'Wie viele Mitarbeiter hat Ihr Unternehmen ungefähr?',options:['1–9','10–49','50–249','250–999','1.000 oder mehr']},
+{title:'In welcher Branche ist Ihr Unternehmen hauptsächlich tätig?',options:['Industrie / Produktion / Handwerk','Dienstleistungen / Beratung','IT / Technologie','Handel / Logistik','Öffentliche Verwaltung / öffentliche Einrichtungen','Gesundheitswesen / Soziales','Sonstige Branche']}
+];
+const letters='ABCD';
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function has(ans,code){const q=Number(code.slice(0,-1))-1;return ans[q]===code.slice(-1)}
+function scoreDiagnosis(d,ans){if(!d.trigger.every(c=>has(ans,c)))return null;const positive=d.support.filter(c=>has(ans,c)).length;const negative=d.against.filter(c=>has(ans,c)).length;const base=d.trigger.length>=3?10:8;return {...d,score:base+2*positive-3*negative,confirm:positive,counter:negative,matched:d.trigger.length+positive}}
+function categorySeverities(ans){return Array.from({length:5},(_,i)=>DATA.questions.slice(i*2,i*2+2).reduce((s,q,j)=>s+q.severity[letters.indexOf(ans[i*2+j])],0))}
+function fallback(ans){const sev=categorySeverities(ans),high=sev.filter(v=>v>=4).length,low=sev.filter(v=>v<=2).length;const positive=sev.filter(v=>v<=1).length;const spread=Math.max(...sev)-Math.min(...sev);if(high>=1&&low>=1&&spread>=3)return {id:27,title:'Die Unternehmens-Wundertüte',type:'mixed',score:5,action:'Vergleichen Sie zwei ähnliche Vorgänge: einen, der reibungslos lief, und einen, der im Chaos endete. Was war bei Zuständigkeiten, Übergaben und Informationen anders?',explain:'Mal läuft alles wie geschmiert, mal streut jemand Sand ins Getriebe. Ihre Antworten zeichnen ein wechselhaftes Bild – jeder Tag ein Griff in die Wundertüte. Das kann auf sehr unterschiedliche Bereiche oder stark situationsabhängige Abläufe hinweisen.'};return {id:28,title:'Der unauffällige Sonderling',type:positive>=3?'positive':'mixed',score:4,action:'Wählen Sie einen gut funktionierenden und einen weniger gut funktionierenden Arbeitsablauf. Vergleichen Sie, was konkret den Unterschied ausmacht.',explain:'Ihr Unternehmen weigert sich beharrlich, in unsere Irrsinn-Schubladen zu passen. Die Antworten ergeben keine ausreichend klare Kombination für eine spezifischere Diagnose. Das ist kein Befund über Ihre Persönlichkeit – nur eine Grenze dieses Kurztests.'}}
+const suppress={14:[1,4,6,9,11],11:[6,7,8],21:[15,16],22:[17,18],4:[9],10:[7],2:[5]};
+function overlap(a,b){const s=new Set([...(a.trigger||[]),...(a.support||[])]);return (b.trigger||[]).filter(c=>s.has(c)).length}
+function distinctRanked(ranked){const chosen=[];for(const d of ranked){if(chosen.some(x=>((suppress[x.id]||[]).includes(d.id)&&overlap(x,d)>=1)))continue;chosen.push(d)}return chosen}
+function analyze(ans){const matches=DATA.diagnoses.map(d=>scoreDiagnosis(d,ans)).filter(Boolean).sort((a,b)=>b.score-a.score||b.trigger.length-a.trigger.length||a.id-b.id);const ranked=distinctRanked(matches);const first=ranked.find(d=>d.score>=8)||fallback(ans);let second=ranked.find(d=>d.id!==first.id&&d.score>=5&&((d.type!==first.type&&overlap(first,d)<=1)||overlap(first,d)===0));if(!second&&first.id<27){second=ranked.find(d=>d.id!==first.id&&d.score>=5&&overlap(first,d)<=1)}const sev=categorySeverities(ans);const index=Math.round(sev.reduce((a,b)=>a+b,0)/30*100);return {first,second:second||null,index,category:sev,matches:matches.length,matchedIds:matches.map(d=>d.id),fallback:first.id>=27}}
+function perspective(action){const role=state.context[0];if(role===0)return 'Aus Ihrer Perspektive: Sammeln Sie ein konkretes Beispiel und sprechen Sie es bei der zuständigen Person an. '+action;if(role===1)return 'Aus Ihrer Koordinationsperspektive: Probieren Sie die Maßnahme zunächst in einem überschaubaren Vorgang aus. '+action;if(role===2)return 'Aus Ihrer Bereichsperspektive: Testen Sie die Maßnahme in einem verantworteten Ablauf. '+action;return 'Aus Sicht der Unternehmensführung: Lassen Sie die Praxis zuerst sichtbar werden, bevor Sie Vorgaben ändern. '+action}
+function draw(){const step=state.step;const total=13;let html='<section class="ic-shell"><header class="ic-head"><h2>Wie irre ist Ihr Unternehmen?</h2><p>Der Irrsinn-Check. 10 Fragen, 5 Themenfelder – und möglicherweise ein paar unangenehm treffende Erkenntnisse.</p></header>';
+if(step<total){const isContext=step<3;const i=isContext?step:step-3;const q=isContext?contextQuestions[i]:DATA.questions[i];const selected=isContext?state.context[i]:state.answers[i];html+='<div class="ic-progress"><div style="width:'+Math.round(step/total*100)+'%"></div></div><main class="ic-body"><div class="ic-kicker">'+(isContext?'Zur Einordnung · '+(step+1)+'/3':'Frage '+(i+1)+'/10 · '+escapeHTML(q.category))+'</div><h3>'+escapeHTML(q.title||q.text)+'</h3><div role="radiogroup" aria-label="Antwortmöglichkeiten">';q.options.forEach((o,j)=>{const val=isContext?String(j):letters[j];const checked=selected=== (isContext?j:val);html+='<label class="ic-opt"><input type="radio" name="ic-answer" value="'+escapeHTML(val)+'" '+(checked?'checked':'')+'><span>'+(isContext?'':'<b>'+letters[j]+'.</b>')+escapeHTML(o)+'</span></label>'});html+='</div><div class="ic-nav"><button type="button" class="ic-secondary" data-action="back" '+(step===0?'disabled':'')+'>Zurück</button><span class="ic-muted">'+(step+1)+' / '+total+'</span><button type="button" data-action="next" '+(selected===null?'disabled':'')+'>'+(step===12?'Auswertung anzeigen':'Weiter')+'</button></div><p class="ic-footer">Die Antworten werden in dieser Version ausschließlich im Browser ausgewertet und nicht an einen Server gesendet.</p></main>'}
+else{const r=state.result||analyze(state.answers);state.result=r;const label=r.index<25?'Erstaunlich wenig Irrsinn':r.index<50?'Leichte bis mittlere Turbulenzen':r.index<75?'Deutliches Irrsinn-Potenzial':'Fortgeschrittener Unternehmensirrsinn';html+='<main class="ic-body"><div class="ic-kicker">Ihre Auswertung</div><div class="ic-score">'+r.index+' / 100</div><p><b>'+label+'</b></p><p class="ic-muted">Der Index ist ein spielerischer Orientierungswert, kein wissenschaftlich validiertes Messinstrument.</p><div class="ic-divider"></div><div class="ic-badge">Wichtigste Erkenntnis</div><h3>'+escapeHTML(r.first.title)+'</h3><p>'+escapeHTML(r.first.explain||explain(r.first))+'</p><div class="ic-panel"><b>Ihr Irrsinn-Killer</b><p>'+escapeHTML(perspective(r.first.action))+'</p><p class="ic-small"><b>Wirksamkeitscheck:</b> Vergleichen Sie den Ablauf vor und nach der Maßnahme anhand eines konkreten Beispiels – etwa Zeitaufwand, Rückfragen oder Übergaben.</p></div>';if(r.second){html+='<div class="ic-divider"></div><div class="ic-badge">Zweite Seite der Medaille</div><h3>'+escapeHTML(r.second.title)+'</h3><p>'+escapeHTML(explain(r.second))+'</p><p><b>Ein Ansatz:</b> '+escapeHTML(r.second.action)+'</p>'}else{html+='<div class="ic-panel"><b>Keine zweite Diagnose auf Verdacht.</b><p>Für eine weitere unabhängige Aussage reicht dieses Antwortmuster nicht aus. Lieber eine treffende Erkenntnis als drei erfundene.</p></div>'}html+='<p class="ic-footer">Grundlage: Ihre Selbsteinschätzung. Zusammenhänge sind Hypothesen, keine nachgewiesenen Ursachen. Die Antworten werden nicht gespeichert. Keine personenbezogene Diagnose.</p><div class="ic-nav"><button type="button" class="ic-secondary" data-action="back">Antworten prüfen</button><button type="button" data-action="restart">Neu starten</button></div></main>'}root.innerHTML=html+'</section>'}
+function explain(d){const descriptions={1:'Abstimmungen und Hierarchien könnten Entscheidungen verzögern. Vielleicht liegt das Problem weniger in den Meetings als darin, wer entscheiden darf.',2:'Jeder erledigt seinen Teil. Das Gesamtergebnis scheint dabei gelegentlich auf der Strecke zu bleiben.',3:'Verbesserungsideen versanden möglicherweise, weil operative Erfahrungen bei der Steuerung zu wenig Beachtung finden.',4:'Besprechungen erzeugen offenbar neue Besprechungen. Die eigentliche Arbeit wartet geduldig draußen.',5:'Es wird besprochen und verteilt, aber die Verantwortung für den Abschluss bleibt möglicherweise unklar.',6:'Vielleicht hat Ihr Unternehmen nicht die Bürokratie abgeschafft, sondern sie nur erfolgreich digitalisiert.',7:'Verteilte Informationsstände und holprige Übergaben könnten auf fehlende gemeinsame Informationsstandards hinweisen.',8:'Persönliche Kontakte und Improvisation halten womöglich Prozesse am Laufen, die auf dem Papier ganz anders aussehen.',9:'Nachrichten und Meetings könnten sich gegenseitig vermehren – ein Kommunikationstsunami mit Kalenderzugriff.',10:'Informelle Eigenlösungen und unterschiedlich geregelte Übergaben könnten den Gesamtprozess destabilisieren.',11:'Oben leuchten die Prozessampeln grün. Unten wird möglicherweise mit Excel, Telefon und Geduld nachgeholfen.',12:'Wenn Schuldabwehr wichtiger wird als Problemlösung, können Fehler und Konflikte sich gegenseitig verstärken.',13:'Ergebnisdruck und digitale Nebentätigkeiten könnten die Stimmung belasten, obwohl die Kennzahlen stimmen.',14:'Hierarchien, Meetings und Freigaben könnten sich gegenseitig antreiben. Ein erstaunlich gut organisiertes Hindernisrennen.',15:'Entscheidungen und Besprechungen führen zu Ergebnissen. Das ist keine Selbstverständlichkeit – und eine Stärke, die sich übertragen lässt.',16:'Trotz kleiner Schnittstellenprobleme werden Kundenfälle zu Ende gebracht. Offenbar übernimmt jemand wirksam Verantwortung.',17:'Die Zusammenarbeit funktioniert trotz lästiger digitaler Vorgaben. Der Teamgeist ist womöglich besser als die Prozesse.',18:'Ein funktionierendes persönliches Netzwerk kompensiert die schlechte Auffindbarkeit von Informationen. Gut für heute, riskant im Urlaub.',19:'Die Meetings bringen Ergebnisse, sind aber zu zahlreich. Weniger davon könnte denselben Nutzen mit geringerem Aufwand liefern.',20:'Die Arbeit macht trotz organisatorischer Schwierigkeiten Freude. Eine Stärke, die bei jeder Veränderung geschützt werden sollte.',21:'Entscheidungen, Abstimmungen und Übergaben greifen gut ineinander. Offenbar funktioniert Selbstorganisation tatsächlich.',22:'Digitale Systeme unterstützen die Arbeit, und Informationen sind auffindbar. So war Digitalisierung ursprünglich einmal gedacht.',23:'Die Stimmung ist gut, doch Erfolge anderer werden nicht immer offen anerkannt. Das kann nebeneinander bestehen.',24:'Die Führung kennt die Abläufe, aber an Schnittstellen hakt es trotzdem. Erkenntnis allein löst noch kein Problem.',25:'Entscheidungen funktionieren, aber Abteilungsgrenzen bremsen. Eine schnelle Insel macht noch keinen schnellen Gesamtprozess.',26:'Die Arbeit macht Spaß, obwohl digitale Pflichtschritte nerven. Gute Stimmung und Bürokratie schließen sich leider nicht aus.'};return descriptions[d.id]||''}
+root.addEventListener('change',e=>{if(e.target.name!=='ic-answer')return;const s=state.step;if(s<3)state.context[s]=Number(e.target.value);else if(s<13)state.answers[s-3]=e.target.value;draw()});root.addEventListener('click',e=>{const btn=e.target.closest('button[data-action]');if(!btn)return;const a=btn.dataset.action;if(a==='back'){state.step=Math.max(0,state.step-1);state.result=null}else if(a==='next'){if(state.step<3&&state.context[state.step]===null)return;if(state.step>=3&&state.step<13&&state.answers[state.step-3]===null)return;state.step++;if(state.step===13)state.result=analyze(state.answers)}else if(a==='restart'){state.step=0;state.context=[null,null,null];state.answers=Array(10).fill(null);state.result=null}draw()});
+// Exposes deterministic diagnostic logic for local tests; no network or storage.
+root.irrsinnTest={analyze,scoreDiagnosis,DATA};draw();
+})();
+</script>
+<script>
+/* Übermittelt die tatsächliche Dokumenthöhe an die einbettende Seite. */
+(function () {
+  'use strict';
+  function reportHeight() {
+    var root = document.getElementById('irrsinn-check-root');
+    if (!root) return;
+    var rect = root.getBoundingClientRect();
+    var height = Math.ceil(rect.bottom + window.scrollY + 20);
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: 'irrsinn-check-height', height: height }, '*');
+    }
+  }
+  window.addEventListener('load', reportHeight);
+  window.addEventListener('resize', reportHeight);
+  if (window.ResizeObserver) {
+    var observer = new ResizeObserver(reportHeight);
+    observer.observe(document.documentElement);
+    if (document.body) observer.observe(document.body);
+  }
+  if (window.MutationObserver) {
+    new MutationObserver(reportHeight).observe(document.getElementById('irrsinn-check-root'), {
+      childList: true, subtree: true, characterData: true
+    });
+  }
+  reportHeight();
+})();
+</script>
+</body>
+</html>
