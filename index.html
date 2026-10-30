@@ -658,31 +658,38 @@ root.irrsinnTest={analyze,scoreDiagnosis,DATA};draw();
 })();
 </script>
 <script>
-/* Übermittelt die tatsächliche Dokumenthöhe an die einbettende Seite. */
+/* Meldet die benötigte Inhaltshöhe bei Änderungen von Inhalt und Breite. */
 (function () {
   'use strict';
-  function reportHeight() {
-    var root = document.getElementById('irrsinn-check-root');
-    if (!root) return;
-    var rect = root.getBoundingClientRect();
-    var height = Math.ceil(rect.bottom + window.scrollY + 20);
-    if (window.parent !== window) {
-      window.parent.postMessage({ type: 'irrsinn-check-height', height: height }, '*');
+  var root = document.getElementById('irrsinn-check-root');
+  if (!root) return;
+  var lastHeight = -1;
+  var lastWidth = -1;
+  function reportHeight(force) {
+    var doc = document.documentElement;
+    var body = document.body;
+    var height = Math.ceil(Math.max(
+      doc.scrollHeight, body ? body.scrollHeight : 0,
+      root.getBoundingClientRect().bottom + window.scrollY + 24
+    ));
+    var width = doc.clientWidth;
+    if (force || height !== lastHeight || width !== lastWidth) {
+      lastHeight = height;
+      lastWidth = width;
+      if (window.parent !== window) {
+        window.parent.postMessage({type:'irrsinn-check-height',height:height}, '*');
+      }
     }
   }
-  window.addEventListener('load', reportHeight);
-  window.addEventListener('resize', reportHeight);
+  window.addEventListener('load', function(){reportHeight(true)});
+  window.addEventListener('resize', function(){reportHeight(true)});
   if (window.ResizeObserver) {
-    var observer = new ResizeObserver(reportHeight);
-    observer.observe(document.documentElement);
-    if (document.body) observer.observe(document.body);
+    new ResizeObserver(function(){reportHeight(false)}).observe(root);
   }
   if (window.MutationObserver) {
-    new MutationObserver(reportHeight).observe(document.getElementById('irrsinn-check-root'), {
-      childList: true, subtree: true, characterData: true
-    });
+    new MutationObserver(function(){reportHeight(true)}).observe(root, {childList:true,subtree:true,characterData:true});
   }
-  reportHeight();
+  reportHeight(true);
 })();
 </script>
 </body>
